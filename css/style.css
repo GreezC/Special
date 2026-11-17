@@ -1,0 +1,122 @@
+/* ===== Palette & fonts (edit here) ===== */
+:root{
+  --white:#FFFFFF; --pink:#F8DDEB; --baby:#FCEBF3; --lav:#E9E0F8; --blue:#DCEBFA; --cream:#FFF8EC;
+  --ink:#7a5468; --soft:#a98597; --rose:#E9A9C6;
+  --body:'Quicksand','Nunito',system-ui,sans-serif; --script:'Gochi Hand','Comic Sans MS',cursive; --lilac:#B596E6; --hand:'Caveat',cursive;
+}
+*{scrollbar-width:none}
+*::-webkit-scrollbar{display:none}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--white);color:var(--ink);font-family:var(--body);overflow:hidden}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+
+#app{position:relative;height:100%;max-width:480px;margin:0 auto}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding:max(24px,env(safe-area-inset-top)) 24px max(24px,env(safe-area-inset-bottom));text-align:center;
+  opacity:0;visibility:hidden;transform:scale(.97);transition:opacity .7s ease,transform .7s ease,visibility .7s;overflow-y:auto}
+.screen.active{opacity:1;visibility:visible;transform:none}
+#s3{background:linear-gradient(#fff,var(--baby))}
+#s5{background:linear-gradient(#fff,var(--cream));justify-content:flex-start;overflow:hidden}
+
+/* ===== Type ===== */
+.script{font-family:var(--script);font-weight:400;font-size:clamp(1.8rem,8.6vw,2.4rem);line-height:1.25;color:var(--lilac);text-shadow:0 0 8px #fff,2px 2px 0 #fff,0 4px 14px rgba(181,150,230,.35)}
+.cute{font-family:var(--script);color:var(--lilac);font-size:1.3rem;line-height:1.35;text-shadow:0 0 6px #fff,1px 1px 0 #fff}
+.script.big{font-size:clamp(2.3rem,12vw,3.2rem)}
+.lead{font-family:var(--script);font-size:1.5rem;line-height:1.35;color:var(--lilac);text-shadow:0 0 6px #fff,1px 1px 0 #fff}
+.sub{font-size:1rem;line-height:1.6;color:var(--soft);max-width:30ch}
+.hand{font-family:var(--script);font-size:1.8rem;color:var(--lilac);margin-top:4px;text-shadow:0 0 6px #fff,1px 1px 0 #fff}
+
+/* ===== Tappable photos ===== */
+/* photos are shown whole (square box, nothing cropped) */
+.photo{width:min(74vw,320px,50vh);aspect-ratio:1/1;border-radius:26px;padding:0;background:none;box-shadow:none;
+  animation:float 4s ease-in-out infinite;transition:transform .25s,filter .25s}
+.photo img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}  /* no frame: just the picture */
+.photo:hover{transform:scale(1.03);filter:brightness(1.04)}
+.photo:active{transform:scale(.94)}
+#photo2{position:relative}
+.gslide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease-in-out}
+.gslide.on{opacity:1}
+.photo.static{cursor:default}
+.photo.static:hover{transform:none;filter:none}
+.photo.opening{animation:burst .9s ease forwards}
+
+/* every text fades in, one after another */
+/* every text fades in slowly, one after another (starts once fonts are ready) */
+.t{opacity:0}
+body.ready .screen.active .t{animation:fadeIn 1.8s ease-in-out both;animation-delay:calc(var(--i)*.9s + .4s)}
+#s2.active #photo2{animation:fadeIn 1s ease 2.2s both,float 3.4s ease-in-out 3.2s infinite,glow 2.6s ease-in-out 3.2s infinite}
+#s4 .photo{width:min(74vw,320px,38vh)}
+#wishImg{transition:opacity .25s,transform .25s}
+#wishImg.out{opacity:0;transform:scale(.88)}
+
+/* ===== Buttons ===== */
+.pill{padding:14px 26px;border-radius:999px;background:var(--pink);font-weight:700;font-size:1rem;color:#8a4d6c;
+  box-shadow:0 8px 18px rgba(233,169,198,.4);transition:transform .2s;min-height:48px}
+.pill:active{transform:scale(.93)}
+.pill.ghost{background:var(--lav);color:#6f5a9a;box-shadow:0 8px 18px rgba(190,170,235,.35)}
+.pill.small{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:50%;translate:-50% 0;font-size:.9rem;padding:10px 20px;min-height:40px;z-index:5}
+.pill[hidden]{display:none}
+.pill.pop{animation:pop .6s ease both}
+#music{position:fixed;top:max(12px,env(safe-area-inset-top));right:12px;z-index:20;width:42px;height:42px;border-radius:50%;
+  background:var(--baby);box-shadow:0 4px 12px rgba(233,169,198,.4);font-size:1.2rem;color:var(--rose);transition:transform .2s}
+#music.on{background:var(--pink);animation:pulse 1.6s ease-in-out infinite}
+#music:active{transform:scale(.88)}
+
+/* ===== Envelope ===== */
+.stage{position:relative;width:min(86vw,340px);height:220px;margin-top:190px;cursor:pointer}
+.env{position:absolute;inset:0;background:#F4CFE0;border-radius:16px;box-shadow:0 14px 30px rgba(233,169,198,.45);
+  animation:float 4s ease-in-out infinite;transition:background-color 1s ease,box-shadow 1s ease}
+.pocket{position:absolute;inset:0;border-radius:16px;z-index:3;pointer-events:none;background:#F8DDEB;
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);transition:opacity 1s ease}
+.flap{position:absolute;left:0;right:0;top:0;height:60%;background:#EFBCD3;z-index:4;clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;transition:transform .9s ease,z-index 0s .45s,opacity 1s ease}
+.seal{position:absolute;left:50%;top:48%;translate:-50% -50%;z-index:5;width:36px;height:36px;border-radius:50%;background:#fff;
+  color:var(--rose);display:grid;place-items:center;font-size:1.1rem;box-shadow:0 3px 8px rgba(0,0,0,.1);transition:opacity .4s}
+/* the paper: rises out of the envelope (transform only), then grows into a big, roomy letter */
+.paper{position:absolute;left:7%;right:7%;top:60px;height:150px;background:#fffdf9;border-radius:14px;z-index:2;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);padding:28px 26px 34px;overflow:hidden;text-align:left;
+  transition:transform 1.4s cubic-bezier(.45,.05,.2,1),height 1.3s cubic-bezier(.4,0,.2,1),left 1.3s ease,right 1.3s ease,box-shadow 1.3s ease}
+.letter-text{font-family:var(--hand);font-size:1.75rem;line-height:1.45;color:var(--ink);white-space:pre-wrap}
+.letter-text span{animation:fadeIn .8s ease both}
+.stage.open .flap{transform:rotateX(180deg);z-index:1}
+.stage.open .seal{opacity:0}
+.stage.open .env{animation-play-state:paused}      /* freeze the float so nothing jumps */
+.stage.slide .paper{transform:translateY(-220px)}
+.stage.out .paper{z-index:6;height:min(64vh,470px);left:-5%;right:-5%;overflow-y:auto;box-shadow:0 14px 34px rgba(233,169,198,.5)}
+.stage.out .env{background-color:transparent;box-shadow:none}
+.stage.out .pocket,.stage.out .flap{opacity:0}
+.stage.out{cursor:default}
+
+/* ===== Wish message ===== */
+.wishmsg{opacity:0;transform:translateY(10px);transition:all .9s .5s;min-height:2.2em;font-size:1.7rem}
+.wishmsg.show{opacity:1;transform:none}
+
+/* ===== Closing: photos tossed up in random directions (motion is in js/main.js) ===== */
+.closing{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:clamp(24px,7vh,64px);z-index:2}
+.toss{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.pic{position:absolute;left:0;bottom:0;width:min(30vw,130px);aspect-ratio:3/4;transform:translateY(130%);will-change:transform}
+.pic img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}  /* no frame, no shadow: just the picture */
+
+/* ===== Floating decorations ===== */
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.fx{position:absolute;bottom:-30px;opacity:0;animation:rise var(--t) linear forwards}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+
+/* ===== Keyframes ===== */
+@keyframes float{50%{transform:translateY(-12px)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}to{transform:none;opacity:1}}
+@keyframes glow{50%{filter:brightness(1.06)}}
+@keyframes pulse{50%{transform:scale(1.1)}}
+@keyframes burst{40%{transform:scale(1.14) rotate(-3deg)}to{transform:scale(1.5);opacity:0;filter:blur(4px)}}
+@keyframes flicker{to{transform:scale(1.12) rotate(4deg)}}
+@keyframes smoke{0%{opacity:.8;transform:translateY(0) scale(.5)}to{opacity:0;transform:translateY(-70px) translateX(12px) scale(3)}}
+@keyframes rise{10%{opacity:.9}to{opacity:0;transform:translate(var(--x),-105vh) rotate(var(--r))}}
+@keyframes scaleY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes unfold{from{transform:scale(0) rotate(-20deg)}to{transform:none}}
+@keyframes headIn{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes openL{from{transform:rotate(0) scale(.7)}to{transform:rotate(-17deg)}}
+@keyframes openR{from{transform:rotate(0) scale(.7)}to{transform:rotate(17deg)}}
+@keyframes petal{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.2)}}

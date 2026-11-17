@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A little surprise ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Nunito:wght@400;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="fx" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<button id="music" aria-label="Toggle music" title="Music">♪</button>
+<audio id="bgm" loop preload="auto" src="assets/audio/music.mp3"></audio><!-- ★ REPLACE: assets/audio/music.wav (or change this src to your own mp3) -->
+
+<main id="app">
+
+<!-- SECTION 1 — Opening -->
+<section class="screen active" id="s1">
+  <h1 class="script t" style="--i:0">psst... i have a little surprise for you!</h1>
+  <p class="sub cute t" style="--i:1">I made something special for you.</p>
+  <button class="photo" id="photo1" aria-label="Tap the picture to open your surprise">
+    <!-- ★ REPLACE IMAGE: assets/images/opening.png (any jpg/png/webp works, just change the filename) -->
+    <img src="assets/images/opening.png" alt="Your surprise">
+  </button>
+</section>
+
+<!-- SECTION 2 — Greeting -->
+<section class="screen" id="s2">
+  <h1 class="script big t" style="--i:0">Happy Birthdayyy!!</h1>
+  <p class="lead t" style="--i:1">Today is your day!</p>
+  <p class="sub t" style="--i:2">Someone deserves a day as wonderful and beautiful as they are.</p>
+  <button class="photo" id="photo2" aria-label="Tap the picture to continue">
+    <!-- ★ REPLACE IMAGES: assets/images/greeting1.png, greeting2.png, greeting3.png (they swap automatically; add more <img class="gslide"> lines if you like) -->
+    <img class="gslide on" src="assets/images/greeting1.png" alt="Birthday picture 1">
+    <img class="gslide" src="assets/images/greeting2.png" alt="Birthday picture 2">
+    <img class="gslide" src="assets/images/greeting3.png" alt="Birthday picture 3">
+  </button>
+</section>
+
+<!-- SECTION 3 — Letter -->
+<section class="screen" id="s3">
+  <div class="stage" id="stage">
+    <div class="env">
+      <div class="paper" id="paper"><div class="letter-text" id="letterText"></div></div>
+      <div class="pocket"></div>
+      <div class="flap"></div>
+      <div class="seal">♡</div>
+    </div>
+  </div>
+  <p class="sub" id="letterHint">tap the envelope</p>
+  <button class="pill" id="toWish" hidden>make a wish</button>
+</section>
+
+<!-- SECTION 4 — Wish -->
+<section class="screen" id="s4">
+  <h1 class="script t" style="--i:0">Make a wish!</h1>
+  <p class="sub cute t" style="--i:1">Close your eyes, make a wish, and let your dreams come true.</p>
+  <div class="photo static" id="wishPhoto">
+    <!-- ★ REPLACE IMAGE: assets/images/wish1.png (the picture it changes into after "Blow the candle" is the 2nd path in CONFIG.wishImages, js/main.js) -->
+    <img id="wishImg" src="assets/images/wish1.png" alt="Your wish picture">
+  </div>
+  <button class="pill" id="blow">Blow the candle!</button>
+  <p class="script wishmsg" id="wishMsg">I hope your wish comes true!</p>
+  <button class="pill ghost" id="toGarden" hidden>one more surprise</button>
+</section>
+
+<!-- SECTION 5 — Closing -->
+<section class="screen" id="s5">
+  <div class="closing">
+    <h1 class="script t" style="--i:0">Once again, Happy Birthday!</h1>
+    <p class="lead t" style="--i:1">May your days be filled with happiness, your heart with peace, and your life with beautiful surprises.</p>
+    <p class="sub t" style="--i:2">Stay happy, stay healthy, and never stop being you.</p>
+    <p class="hand t" style="--i:3">Sending you lots of Takoyaki and hugs!</p>
+  </div>
+  <!-- ★ REPLACE IMAGES: assets/images/final1.png … final5.png (each one is tossed up in a random direction, then falls out of view, forever) -->
+  <div class="toss" id="toss">
+    <div class="pic"><img src="assets/images/final1.png" alt=""></div>
+    <div class="pic"><img src="assets/images/final2.png" alt=""></div>
+    <div class="pic"><img src="assets/images/final3.png" alt=""></div>
+    <div class="pic"><img src="assets/images/final4.png" alt=""></div>
+    <div class="pic"><img src="assets/images/final5.png" alt=""></div>
+  </div>
+  <button class="pill small" id="replay">Replay the surprise ↻</button>
+</section>
+
+</main>
+<script src="js/main.js"></script>
+</body>
+</html>
